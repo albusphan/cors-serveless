@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const allowCors = (fn) => async (req, res) => {
   res.setHeader("Access-Control-Allow-Credentials", true);
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -18,9 +20,11 @@ const allowCors = (fn) => async (req, res) => {
   return await fn(req, res);
 };
 
-const handler = (req, res) => {
-  const d = new Date();
-  res.end(d.toString());
+const handler = async (req, res) => {
+  const url = req.query?.url;
+
+  const res = await axios.get(url);
+  res.end(JSON.stringify(res));
 };
 
 module.exports = allowCors(handler);
