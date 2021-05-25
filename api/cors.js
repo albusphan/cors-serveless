@@ -23,8 +23,9 @@ const allowCors = (fn) => async (req, res) => {
 const handler = async (req, res) => {
   const url = req.query?.url;
 
-  const res = await axios.get(url);
-  res.end(JSON.stringify(res));
+  const response = await axios.get(url);
+
+  res.end(JSON.stringify(response.data));
 };
 
 module.exports = allowCors(handler);
